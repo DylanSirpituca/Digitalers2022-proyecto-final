@@ -16,7 +16,7 @@ import com.educacionit.digitalers.entities.Login;
 @Service
 public class LoginService {
 	private static Logger logger = LogManager.getLogger();
-	private static Map<String, Login> loggedUsers = new ConcurrentHashMap<>();
+	private static Map<UUID, Login> loggedUsers = new ConcurrentHashMap<>();
 
 	@Value("${login.expiresIn}")
 	private Long expiresIn;
@@ -26,8 +26,9 @@ public class LoginService {
 	private String credential;
 
 	public Login getLogin(String mail) {
+		UUID uuid = UUID.randomUUID();
 		Login login = Login.builder().uuid(UUID.randomUUID()).creationDate(LocalDateTime.now()).expiresIn(expiresIn)
-				.type(type).credential(credential).build();
+				.type(type).credential(credential).email(email).build();
 		loggedUsers.put(mail, login);
 		logger.info(loggedUsers);
 		return login;
