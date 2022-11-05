@@ -2,7 +2,7 @@ package com.educacionit.digitalers.entities;
 
 import org.springframework.stereotype.Component;
 
-import com.educacionit.digitalers.enums.MessageType;
+import com.educacionit.digitalers.Enum.MessageType;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

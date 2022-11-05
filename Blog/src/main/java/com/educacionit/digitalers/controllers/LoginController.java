@@ -1,4 +1,4 @@
-package com.educacionit.digitalers.Controllers;
+package com.educacionit.digitalers.controllers;
 
 import javax.validation.Valid;
 
@@ -17,12 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.educacionit.digitalers.DTOs.UserLoginDTO;
+import com.educacionit.digitalers.Enum.MessageType;
 import com.educacionit.digitalers.entities.User;
-import com.educacionit.digitalers.enums.MessageType;
-import com.educacionit.digitalers.repositories.UserRepository;
-import com.educacionit.digitalers.services.LoginService;
-import com.educacionit.digitalers.services.ResponseMessageService;
-
+import com.educacionit.digitalers.Repositories.UserRepository;
+import com.educacionit.digitalers.Services.LoginService;
+import com.educacionit.digitalers.Services.ResponseMessageService;
 import com.octaviorobleto.commons.utilities.text.CodeUtils;
 
 @RestController

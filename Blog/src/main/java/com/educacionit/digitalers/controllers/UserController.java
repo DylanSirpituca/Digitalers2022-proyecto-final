@@ -1,4 +1,4 @@
-package com.educacionit.digitalers.Controllers;
+package com.educacionit.digitalers.controllers;
 
 import javax.validation.Valid;
 
@@ -11,11 +11,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.educacionit.digitalers.controllers.GenericRestController;
 import com.educacionit.digitalers.DTOs.UserDTO;
-import com.educacionit.digitalers.DTOs.repositories.UserImplementDTO;
-import com.educacionit.digitalers.enums.MessageType;
-import com.educacionit.digitalers.exceptions.ExceptionDTO;
-import com.educacionit.digitalers.services.ResponseMessageService;
+import com.educacionit.digitalers.DTOs.Repositories.UserImplementDTO;
+import com.educacionit.digitalers.Enum.MessageType;
+import com.educacionit.digitalers.Exception.ExceptionDTO;
+import com.educacionit.digitalers.Services.ResponseMessageService;
 
 @RestController
 @RequestMapping(value = { "/users" }, produces = { MediaType.APPLICATION_JSON_VALUE })

@@ -1,12 +1,12 @@
-package com.educacionit.digitalers.services;
+package com.educacionit.digitalers.Services;
 
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
+import com.educacionit.digitalers.Enum.MessageType;
 import com.educacionit.digitalers.entities.ResponseMessage;
-import com.educacionit.digitalers.enums.MessageType;
 
 @Service
 public class ResponseMessageService {

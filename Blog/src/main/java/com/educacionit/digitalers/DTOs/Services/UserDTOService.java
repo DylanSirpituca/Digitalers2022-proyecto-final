@@ -1,10 +1,10 @@
-package com.educacionit.digitalers.DTOs.services;
+package com.educacionit.digitalers.DTOs.Services;
 
 import org.springframework.stereotype.Service;
 
 import com.educacionit.digitalers.DTOs.UserDTO;
+import com.educacionit.digitalers.Exception.ExceptionDTO;
 import com.educacionit.digitalers.entities.User;
-import com.educacionit.digitalers.exceptions.ExceptionDTO;
 
 @Service
 public class UserDTOService {

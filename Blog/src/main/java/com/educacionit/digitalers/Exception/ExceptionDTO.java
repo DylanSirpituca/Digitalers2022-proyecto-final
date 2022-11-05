@@ -1,4 +1,4 @@
-package com.educacionit.digitalers.exceptions;
+package com.educacionit.digitalers.Exception;
 
 public class ExceptionDTO extends RuntimeException {
 	private static final long serialVersionUID = 1L;

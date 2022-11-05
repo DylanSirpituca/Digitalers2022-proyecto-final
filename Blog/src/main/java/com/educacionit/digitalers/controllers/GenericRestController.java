@@ -1,4 +1,4 @@
-package com.educacionit.digitalers.Controllers;
+package com.educacionit.digitalers.controllers;
 
 import javax.validation.Valid;
 

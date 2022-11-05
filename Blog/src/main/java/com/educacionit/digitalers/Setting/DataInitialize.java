@@ -1,4 +1,4 @@
-package com.educacionit.digitalers.setting;
+package com.educacionit.digitalers.Setting;
 
 import java.time.LocalDateTime;
 
@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import com.educacionit.digitalers.Repositories.UserRepository;
 import com.educacionit.digitalers.entities.User;
-import com.educacionit.digitalers.repositories.UserRepository;
 import com.octaviorobleto.commons.utilities.text.CodeUtils;
 
 @Component

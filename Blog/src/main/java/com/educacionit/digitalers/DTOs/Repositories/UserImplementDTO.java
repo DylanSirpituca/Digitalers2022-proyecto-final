@@ -1,4 +1,4 @@
-package com.educacionit.digitalers.DTOs.repositories;
+package com.educacionit.digitalers.DTOs.Repositories;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -12,9 +12,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.educacionit.digitalers.DTOs.UserDTO;
-import com.educacionit.digitalers.DTOs.services.UserDTOService;
+import com.educacionit.digitalers.DTOs.Services.UserDTOService;
+import com.educacionit.digitalers.Repositories.UserRepository;
 import com.educacionit.digitalers.entities.User;
-import com.educacionit.digitalers.repositories.UserRepository;
+import com.octaviorobleto.commons.utilities.text.CodeUtils;
 
 @Component
 public class UserImplementDTO implements GenericRepositoryDTO<UserDTO, Long> {

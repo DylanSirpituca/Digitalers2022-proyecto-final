@@ -1,4 +1,4 @@
-package com.educacionit.digitalers.repositories;
+package com.educacionit.digitalers.Repositories;
 
 import java.util.Optional;
 
