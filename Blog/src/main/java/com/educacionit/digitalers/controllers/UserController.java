@@ -11,11 +11,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.educacionit.digitalers.controllers.GenericRestController;
 import com.educacionit.digitalers.DTOs.UserDTO;
 import com.educacionit.digitalers.DTOs.Repositories.UserImplementDTO;
 import com.educacionit.digitalers.Enum.MessageType;
 import com.educacionit.digitalers.Exception.ExceptionDTO;
+import com.educacionit.digitalers.Services.LoginService;
 import com.educacionit.digitalers.Services.ResponseMessageService;
 
 @RestController
@@ -24,15 +24,18 @@ public class UserController implements GenericRestController<UserDTO, Long> {
 	private static Logger logger = LogManager.getLogger();
 
 	@Autowired
-	private UserImplementDTO userImplementDTO;
+	private UserImplementDTO userDTOImpl;
 
 	@Autowired
 	private ResponseMessageService responseMessageService;
 
+	@Autowired
+	private LoginService loginService;
+
 	public ResponseEntity<?> findById(Long id) {
 		logger.info("ID : " + id);
 		try {
-			UserDTO userDTO = userImplementDTO.findById(id).orElse(null);
+			UserDTO userDTO = userDTOImpl.findById(id).orElse(null);
 			return ResponseEntity.ok(userDTO);
 		} catch (ExceptionDTO e) {
 			logger.error(e);
@@ -41,31 +44,61 @@ public class UserController implements GenericRestController<UserDTO, Long> {
 		}
 	}
 
-	public ResponseEntity<?> insert(@Valid UserDTO userDTO, BindingResult bindingResult) {
+	public ResponseEntity<?> insert(String uuid, @Valid UserDTO userDTO, BindingResult bindingResult) {
+		logger.info("credential :" + uuid);
+
+		if (uuid == null) {
+			return ResponseEntity.status(400).body(responseMessageService.getResponseMessage(MessageType.BAD_REQUEST,
+					"credential [" + uuid + "] No encontrada"));
+		}
+		if (!loginService.validateLogin(uuid)) {
+			return ResponseEntity.status(409).body(responseMessageService
+					.getResponseMessage(MessageType.VALIDATION_ERROR, "credential [" + uuid + "] No encontrada"));
+		}
 
 		return save(userDTO, bindingResult);
 	}
 
-	public ResponseEntity<?> update(@Valid UserDTO userDTO, BindingResult bindingResult) {
+	public ResponseEntity<?> update(String uuid, @Valid UserDTO userDTO, BindingResult bindingResult) {
+		logger.info("credential :" + uuid);
 
+		if (uuid == null) {
+			return ResponseEntity.status(400).body(responseMessageService.getResponseMessage(MessageType.BAD_REQUEST,
+					"credential [" + uuid + "] No encontrada"));
+		}
+
+		if (!loginService.validateLogin(uuid)) {
+			return ResponseEntity.status(409).body(responseMessageService
+					.getResponseMessage(MessageType.VALIDATION_ERROR, "credential [" + uuid + "] No encontrada"));
+		}
 		return save(userDTO, bindingResult);
 	}
 
-	public ResponseEntity<?> delete(@Valid UserDTO userDTO, BindingResult bindingResult) {
+	public ResponseEntity<?> delete(String uuid, @Valid UserDTO userDTO, BindingResult bindingResult) {
+		logger.info("credential :" + uuid);
+
+		if (uuid == null) {
+			return ResponseEntity.status(400).body(responseMessageService.getResponseMessage(MessageType.BAD_REQUEST,
+					"credential [" + uuid + "] No encontrada"));
+		}
+		if (!loginService.validateLogin(uuid)) {
+			return ResponseEntity.status(409).body(responseMessageService
+					.getResponseMessage(MessageType.VALIDATION_ERROR, "credential [" + uuid + "] No encontrada"));
+		}
 		if (bindingResult.hasErrors()) {
 			return ResponseEntity.status(400)
 					.body(responseMessageService.getResponseMessage(MessageType.VALIDATION_ERROR, bindingResult));
 		}
 
 		try {
-			userImplementDTO.findByEmail(userDTO.getEmail());
+			userDTOImpl.findByEmail(userDTO.getEmail());
 		} catch (ExceptionDTO e) {
 			logger.error(e);
 			return ResponseEntity.status(404).body(
 					responseMessageService.getResponseMessage(MessageType.NO_ELEMENTS, userDTO + " No encontrado"));
 		}
 
-		userImplementDTO.delete(userDTO);
+		userDTOImpl.delete(userDTO);
 
 		return ResponseEntity.ok(
 				responseMessageService.getResponseMessage(MessageType.DELETE_ELEMENT, "Usuario " + userDTO.getEmail())
@@ -73,7 +106,7 @@ public class UserController implements GenericRestController<UserDTO, Long> {
 	}
 
 	public ResponseEntity<?> findAll() {
-		return ResponseEntity.ok(userImplementDTO.findAll());
+		return ResponseEntity.ok(userDTOImpl.findAll());
 	}
 
 	private ResponseEntity<?> save(UserDTO userDTO, BindingResult bindingResult) {
@@ -82,7 +115,7 @@ public class UserController implements GenericRestController<UserDTO, Long> {
 					.body(responseMessageService.getResponseMessage(MessageType.VALIDATION_ERROR, bindingResult));
 		}
 		logger.info(userDTO);
-		userImplementDTO.save(userDTO);
+		userDTOImpl.save(userDTO);
 
 		userDTO.setMessage("Usuario Guardado Exitosamente");
 		return ResponseEntity.ok(userDTO);
